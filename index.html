@@ -36,7 +36,8 @@ document.addEventListener("deviceready", function (){
            var Apmat_T=$("#txtapmt").val();
 		$.ajax({
 			type: "POST",
-			url:"http://alberthoisc.esy.es/guardar.php",
+			url:"http://www.alberthoisc.esy.es/guardar.php",
+                        
 			data:"Nom="+Nom+"&Ap_pat="+Ap_pat+"&Ap_mat="+Ap_mat+"&Fec_Nac="+Fec_Nac+
 			     "&Edad="+Edad+"&Dir="+Dir+"&Loc="+Loc+"&peso="+peso+"&talla="+talla+
                              "&dx="+dx+"&Nom_T="+Nom_T+"&Appat_T="+Appat_T+"&Apmat_T="+Apmat_T,
@@ -66,7 +67,7 @@ document.addEventListener("deviceready", function (){
             alert(w);
             $.ajax({
                 type:"POST",
-                url:"http://alberthoisc.esy.es/ConsultaID.php",
+                url:"http://www.alberthoisc.esy.es/ConsultaID.php",
                 data:"W="+w,
                 success: function (respuesta){
                         var reg =$.parseJSON(respuesta);
