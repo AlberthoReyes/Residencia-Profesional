@@ -14,7 +14,6 @@
 <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js" ></script>
 
 
-
 <script type="text/javascript">
             
 document.addEventListener("deviceready", function (){
@@ -36,7 +35,7 @@ document.addEventListener("deviceready", function (){
            var Apmat_T=$("#txtapmt").val();
 		$.ajax({
 			type: "POST",
-			url:"http://www.alberthoisc.esy.es/guardar.php",
+			url:"http://alberthoisc.esy.es/Guardar.php",
                         
 			data:"Nom="+Nom+"&Ap_pat="+Ap_pat+"&Ap_mat="+Ap_mat+"&Fec_Nac="+Fec_Nac+
 			     "&Edad="+Edad+"&Dir="+Dir+"&Loc="+Loc+"&peso="+peso+"&talla="+talla+
@@ -60,14 +59,13 @@ document.addEventListener("deviceready", function (){
            var Apmat_T=$("#txtapmt").val('');
                    
 	});
-        
       
         $("#btnConsultarID").tap(function (){
             var w=$("#txtIDConsult").val();
             alert(w);
             $.ajax({
                 type:"POST",
-                url:"http://www.alberthoisc.esy.es/ConsultaID.php",
+                url:"http://alberthoisc.esy.es/ConsultaID.php",
                 data:"W="+w,
                 success: function (respuesta){
                         var reg =$.parseJSON(respuesta);
@@ -96,29 +94,74 @@ document.addEventListener("deviceready", function (){
              });
             
         });
-                
-        $("#btnEliminarID").tap(function (){
-            var id=$("#txtIDEliminar").val();
-            alert(id);
+        
+        $("#btnConsultarID2").tap(function (){
+            var w=$("#txtIDConsult2").val();
+            alert(w);
             $.ajax({
                 type:"POST",
-                url:"Eliminar.php",
-                data:"ID="+id,
-                success:function (respuesta){
-                    var reg=$.parseJSON(respuesta);
-                    var contenedor=$("#resEliminaID");
-                    contenedor.html('<table border ="1" whidth="100" id = "tbl2"><th>id</th><th>nombre</th><th>marca</th><th>precio</th><th>Cant</th> ');
-                    var fila=$("#tbl3");
+                url:"http://alberthoisc.esy.es/ConsultaID2.php",
+                data:"W="+w,
+                success: function (respuesta){
+                        var reg =$.parseJSON(respuesta);
+                        var contenedor=$("#resConsultaID2");
+                       
+                        contenedor.html('<div data-role ="content" id="o"><p>INFORMACION</p>');
                     
-                    for(var i in reg){
-                        fila.append('<tr><td>'+reg[i].id+'</td><td>'+reg[i].Nom+'</td><td>'+reg[i].Marc+'</td><td>'+reg[i].Precio+'</td><td>'+reg[i].Cant+'</td></tr>');    
-                    }
-                     fila.append('</table>');
-                }
-            });
+                        var x=$("#o");
+                        for(var i in reg){
+                        x.append(
+                                '<hr>'+
+                                'Datos del Beneficiario: '+reg[i].Nom+' '+reg[i].Ap_pat+' '+reg[i].Ap_mat+'<br>'+
+                                'Fecha de Nacimiento: '+reg[i].Fec_Nac+'<br>'+
+                                'Edad: '+reg[i].Edad+' años'+'<br>'+
+                                'Direccion: '+reg[i].Dir+'<br>'+
+                                'Localidad: '+reg[i].Loc+'<br>'+
+                                'Datos del Tutor: '+reg[i].Nom_T+' '+reg[i].Appat_T+' '+reg[i].Apmat_T+'<br>'+
+                                'Telefono: '+reg[i].Tel+'<br>'+
+                                '<br>'+
+                                '<hr>');
+                        }
+                         x.append('</div>');
+                      }
+             });
             
         });
         
+        $("#btnConsultarID3").tap(function (){
+            var w=$("#txtIDConsult3").val();
+            alert(w);
+            $.ajax({
+                type:"POST",
+                url:"http://alberthoisc.esy.es/ConsultaID3.php",
+                data:"W="+w,
+                success: function (respuesta){
+                        var reg =$.parseJSON(respuesta);
+                        var contenedor=$("#resConsultaID3");
+                       
+                        contenedor.html('<div data-role ="content" id="o"><p>INFORMACION</p>');
+                    
+                        var x=$("#o");
+                        for(var i in reg){
+                        x.append(
+                                '<hr>'+
+                                'Datos del Beneficiario: '+reg[i].Nom+' '+reg[i].Ap_pat+' '+reg[i].Ap_mat+'<br>'+
+                                'Fecha de Nacimiento: '+reg[i].Fec_Nac+'<br>'+
+                                'Edad: '+reg[i].Edad+' años'+'<br>'+
+                                'Direccion: '+reg[i].Dir+'<br>'+
+                                'Localidad: '+reg[i].Loc+'<br>'+
+                                'Dx: '+reg[i].dx+'<br>'+
+                                'Datos del Tutor: '+reg[i].Nom_T+' '+reg[i].Appat_T+' '+reg[i].Apmat_T+'<br>'+
+                                'Telefono: '+reg[i].Tel+'<br>'+
+                                '<br>'+
+                                '<hr>');
+                        }
+                         x.append('</div>');
+                      }
+             });
+            
+        });
+  
         $("#btnlimpiar").tap(function (){
            var Nom=$("#txtnomb").val('');	
 	   var Ap_pat=$("#txtappb").val('');
@@ -134,8 +177,7 @@ document.addEventListener("deviceready", function (){
            var Appat_T=$("#txtappt").val('');
            var Apmat_T=$("#txtapmt").val('');
            
-            
-        });
+ });
         
         $("#btnGuardar2").tap(function (){
 	 
@@ -227,7 +269,8 @@ document.addEventListener("deviceready", function (){
             <div class="w3-container w3-theme-d2"> MENÚ 
             <span onclick="w3_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
-        <br>
+        <br>  
+        <a href="#pantalla1">INICIO</a>
         <br>
         <br>
         <a href="#menu1">RESCATE NUTRICIO</a>
@@ -244,16 +287,17 @@ document.addEventListener("deviceready", function (){
            <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w3_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w3_open()">°°°</div>
             <div class="w3-center">BIENVENIDOS</div>
             </div>
         </div>
             <!-- IMG DE FONDO -->
         <div class="w3-row">
             <div class="w3-col s3">
-             <img class="yo" src="img/logo.jpg">
+             <img class="yo" src="img/logo.jpg" alt="" style="width:300px;height:450px;">
+             </div>
             </div>           
-        </div> 
+        
         
         <script>
         function w3_open() {
@@ -263,8 +307,7 @@ document.addEventListener("deviceready", function (){
             document.getElementById("wiki").style.display = "none";
         }
         </script>
-       
-</div>
+  </div>      
 
 <!-- RESCATE NUTRICIO - MENU -->
            
@@ -273,6 +316,8 @@ document.addEventListener("deviceready", function (){
             <div class="w3-container w3-theme-d2"> MENÚ 
                  <span onclick="w1_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
                 <br>
                 <br>
                 <br>
@@ -290,7 +335,7 @@ document.addEventListener("deviceready", function (){
            <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w1_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w1_open()">°°°</div>
             <div class="w3-center">RESCATE NUTRICIO</div>
             </div>
         </div>
@@ -310,7 +355,7 @@ document.addEventListener("deviceready", function (){
             <br>
             <a href="#insertar1" data-role="button" data-transition="flip">Registrar Beneficiarios</a>
             <a href="#consultarID1" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
-            <a href="" data-role="button" data-transition="flip">Status</a>
+            <a href="#status1" data-role="button" data-transition="flip">Status</a>
         </div>
     
 </div>
@@ -322,6 +367,8 @@ document.addEventListener("deviceready", function (){
             <div class="w3-container w3-theme-d2"> MENÚ 
                  <span onclick="w2_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
                 <br>
                 <br>
                 <br>
@@ -339,7 +386,7 @@ document.addEventListener("deviceready", function (){
            <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w2_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w2_open()">°°°</div>
             <div class="w3-center">RESCATE NUTRICIO</div>
             <div class="w3-center"><H2>AGREGAR BENEFICIARIOS</H2></div>
             
@@ -386,6 +433,8 @@ document.addEventListener("deviceready", function (){
             <div class="w3-container w3-theme-d2"> MENÚ 
                  <span onclick="w4_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
                 <br>
                 <br>
                 <br>
@@ -403,7 +452,7 @@ document.addEventListener("deviceready", function (){
            <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w4_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w4_open()">°°°</div>
             <div class="w3-center">RESCATE NUTRICIO</div>
             <div class="w3-center"><H2>CONSULTA POR NOMBRE</H2></div>
             </div>
@@ -431,15 +480,16 @@ document.addEventListener("deviceready", function (){
         </div>      
 </div>    
     
+<!-- RESCATE NUTRICIO - STATUS -->
 
-<!-- INCONUT - MENU-->
-    
-<div data-role="page" id="menu2" data-theme="b">
+<div data-role="page" id="status1" data-theme="a">
         
-<nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki1">
+        <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiiis">
             <div class="w3-container w3-theme-d2"> MENÚ 
-             <span onclick="w5_close()" class="w3-closenav w3-right w3-large">X<br></span>
+                 <span onclick="w41_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
                 <br>
                 <br>
                 <br>
@@ -457,7 +507,69 @@ document.addEventListener("deviceready", function (){
            <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w5_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w41_open()">°°°</div>
+            <div class="w3-center">RESCATE NUTRICIO</div>
+            <div class="w3-center"><H2>STATUS</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w41_open() {
+            document.getElementById("wiiis").style.display = "block";
+        }
+        function w41_close() {
+            document.getElementById("wiiis").style.display = "none";
+        }
+        </script>   
+           
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="w3-center">
+           
+             <br><br>
+             
+             PROGRAMA DEL SISTEMA DIF DIRIGIDO A NIÑAS Y NIÑOS DE ENTRE 4 Y 11 AÑOS DE EDAD
+             CUYO OBJETIVO PRIMORDIAL ES EL DETECTAR A MENORES EN SITUACION DE DESNUTRICION
+             SEVERA O MODERADA, Y CON ELLO APOYAR CON DEPENSAS INLUYENDO ALIMENTOS CLAVE Y
+             SUPLEMENTOS ALIMENTICIOS PARA RESARSIR SU CONDICION ALIMENTARIA.<br><br>
+             
+             ACTUALMENTE, SE CUENTAN CON 160 BENEFICIARIOS.
+            
+            </div>
+        </div>      
+</div>    
+
+<!-- INCONUT - MENU-->
+    
+<div data-role="page" id="menu2" data-theme="b">
+        
+<nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki1">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+             <span onclick="w5_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w5_open()">°°°</div>
             <div class="w3-center">INCONUT</div>
             </div>
         </div>
@@ -477,8 +589,8 @@ document.addEventListener("deviceready", function (){
             <br>
             <br>
             <a href="#insertar2" data-role="button" data-transition="flip">Registrar Beneficiarios</a>
-            <a href="#" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
-            <a href="" data-role="button" data-transition="flip">Status</a>
+            <a href="#consultarID2" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
+            <a href="#status2" data-role="button" data-transition="flip">Status</a>
         </div>
 </div>
 
@@ -544,7 +656,124 @@ document.addEventListener("deviceready", function (){
 	</div>
 
         </div>
+
+<!-- INCONUT- CONSULTA ESPECIFICA -->    
+
+<div data-role="page" id="consultarID2" data-theme="b">
+            <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiiii">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w42_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w42_open()">°°°</div>
+            <div class="w3-center">INCONUT</div>
+            <div class="w3-center"><H2>CONSULTA POR NOMBRE</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w42_open() {
+            document.getElementById("wiiii").style.display = "block";
+        }
+        function w42_close() {
+            document.getElementById("wiiii").style.display = "none";
+        }
+        </script>   
+           
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="text" id="txtIDConsult2" placeholder="El Nombre del Beneficiario" />
+            <input type="button" value="Consultar" id="btnConsultarID2" />
+            <DIV id="resConsultaID2">
+                
+            </div>
+        </div>  
     
+</div>    
+
+<!-- INCONUT - STATUS -->
+
+<div data-role="page" id="status2" data-theme="a">
+        
+        <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiiiss">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w43_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w43_open()">°°°</div>
+            <div class="w3-center">RESCATE NUTRICIO</div>
+            <div class="w3-center"><H2>STATUS</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w43_open() {
+            document.getElementById("wiiiss").style.display = "block";
+        }
+        function w43_close() {
+            document.getElementById("wiiiss").style.display = "none";
+        }
+        </script>   
+           
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="w3-center">
+           
+             <br><br>
+             
+             PROGRAMA DEL SISTEMA DIF DIRIGIDO A NIÑAS Y NIÑOS DE ENTRE 1 Y 3 AÑOS DE EDAD
+             CUYO OBJETIVO PRIMORDIAL ES EL DETECTAR A MENORES DE TEMPRANA EDAD PARA
+             APOYAR A UNA CORRECTA NUTRICION A TRAVES DE ALIMENTOS SALUDABLES, LOS CUALES
+             ASEGUREN UN BUEN DESARROLLO.<br><br>
+             
+             ACTUALMENTE, SE CUENTAN CON 191 BENEFICIARIOS.
+            
+            </div>
+        </div>      
+</div>    
+
 <!-- DISCAPACIDAD - MENU-->
 
 <div data-role="page" id="menu3" data-theme="b">
@@ -553,6 +782,8 @@ document.addEventListener("deviceready", function (){
             <div class="w3-container w3-theme-d2"> MENÚ 
             <span onclick="w7_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
+        <br> 
+        <a href="#pantalla1">INICIO</a>  
         <br>
         <br>
         <br>
@@ -570,7 +801,7 @@ document.addEventListener("deviceready", function (){
      <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w7_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w7_open()">°°°</div>
             <div class="w3-center">DISCAPACIDAD</div>
             </div>
         </div>
@@ -589,8 +820,8 @@ document.addEventListener("deviceready", function (){
             <br>
             <br>
             <a href="#insertar3" data-role="button" data-transition="flip">Registrar Beneficiarios</a>
-            <a href="#" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
-            <a href="" data-role="button" data-transition="flip">Status</a>
+            <a href="#consultarID3" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
+            <a href="#status3" data-role="button" data-transition="flip">Status</a>
         </div>
 </div>
 
@@ -602,6 +833,8 @@ document.addEventListener("deviceready", function (){
             <div class="w3-container w3-theme-d2"> MENÚ 
             <span onclick="w8_close()" class="w3-closenav w3-right w3-large">X<br></span>
             </div>
+        <br>       
+        <a href="#principal1">INICIO</a>
         <br>
         <br>
         <br>
@@ -619,7 +852,7 @@ document.addEventListener("deviceready", function (){
            <!-- TEXTO EN CABECERA -->
         <div class="w3-top">
             <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
-            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w8_open()">☰</div>
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w8_open()">°°°</div>
             <div class="w3-center">DISCAPACIDAD</div>
             <div class="w3-center"><H2>AGREGAR BENEFICIARIOS</H2></div>
             </div>
@@ -655,6 +888,122 @@ document.addEventListener("deviceready", function (){
 	</div>
        
 </div>
+
+<!-- DISCAPACIDAD- CONSULTA ESPECIFICA -->    
+
+<div data-role="page" id="consultarID3" data-theme="b">
+            <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiiiii">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w49_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w49_open()">°°°</div>
+            <div class="w3-center">DISCAPACIDAD</div>
+            <div class="w3-center"><H2>CONSULTA POR NOMBRE</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w49_open() {
+            document.getElementById("wiiiii").style.display = "block";
+        }
+        function w49_close() {
+            document.getElementById("wiiiii").style.display = "none";
+        }
+        </script>   
+           
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="text" id="txtIDConsult3" placeholder="El Nombre del Beneficiario" />
+            <input type="button" value="Consultar" id="btnConsultarID3" />
+            <DIV id="resConsultaID3">
+                
+            </div>
+        </div>  
+    
+</div>    
+
+<!-- INCONUT - STATUS -->
+
+<div data-role="page" id="status3" data-theme="a">
+        
+        <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiiisss">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w47_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>  
+                <a href="#pantalla1">INICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w47_open()">°°°</div>
+            <div class="w3-center">DISCAPACIDAD</div>
+            <div class="w3-center"><H2>STATUS</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w47_open() {
+            document.getElementById("wiiisss").style.display = "block";
+        }
+        function w47_close() {
+            document.getElementById("wiiisss").style.display = "none";
+        }
+        </script>   
+           
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <div class="w3-center">
+           
+             <br><br>
+             
+             PROGRAMA DEL SISTEMA DIF DIRIGIDO A PERSONAS DE 4 A 65 AÑOS DE EDAD
+             QUE PADECEN DE ALGUN TIPO DE DISCAPACIDAD, YA SEA VISUAL, MOTRIZ
+             AUDITIVA, O MENTAL.<br><br>
+             
+             ACTUALMENTE, SE CUENTAN CON 131 BENEFICIARIOS.
+            
+            </div>
+        </div>      
+</div>  
 
 </body>
 </html>
