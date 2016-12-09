@@ -1,0 +1,659 @@
+<!--HTML-->
+<HTML>
+    <HEAD>
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" type="text/css"/>
+<link rel="stylesheet" href="css/jquery.mobile.theme-1.4.5.min.css" type="text/css"  />
+<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.5.min.css" type="text/css" />
+<link rel="stylesheet" href="css/css1.css">
+<link rel="stylesheet" href="css/css2.css">
+<link rel="stylesheet" href="css/colorazul.css">
+<link rel="stylesheet" href="css/colorrojo.css">
+
+
+<script type="text/javascript" src="js/jquery-2.2.0.min.js" ></script>
+<script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js" ></script>
+
+
+
+<script type="text/javascript">
+            
+document.addEventListener("deviceready", function (){
+	
+        $("#btnGuardar").tap(function (){
+	 
+	   var Nom=$("#txtnomb").val();	
+	   var Ap_pat=$("#txtappb").val();
+	   var Ap_mat=$("#txtapmb").val();
+           var Fec_Nac=$("#txtfecnac").val();
+	   var Edad=$("#txtedad").val();	
+	   var Dir=$("#txtdir").val();
+	   var Loc=$("#txtloc").val();
+           var peso=$("#txtpeso").val(); 
+	   var talla=$("#txttalla").val();
+	   var dx=$("#txtdx").val();
+           var Nom_T=$("#txtnomt").val();
+           var Appat_T=$("#txtappt").val();
+           var Apmat_T=$("#txtapmt").val();
+		$.ajax({
+			type: "POST",
+			url:"http://alberthoisc.esy.es/guardar.php",
+			data:"Nom="+Nom+"&Ap_pat="+Ap_pat+"&Ap_mat="+Ap_mat+"&Fec_Nac="+Fec_Nac+
+			     "&Edad="+Edad+"&Dir="+Dir+"&Loc="+Loc+"&peso="+peso+"&talla="+talla+
+                             "&dx="+dx+"&Nom_T="+Nom_T+"&Appat_T="+Appat_T+"&Apmat_T="+Apmat_T,
+			success: function (datos){
+				alert(datos);
+			}
+		});
+           var Nom=$("#txtnomb").val('');	
+	   var Ap_pat=$("#txtappb").val('');
+	   var Ap_mat=$("#txtapmb").val('');
+           var Fec_Nac=$("#txtfecnac").val('');
+	   var Edad=$("#txtedad").val('');	
+	   var Dir=$("#txtdir").val('');
+	   var Loc=$("#txtloc").val('');
+           var peso=$("#txtpeso").val('');
+	   var talla=$("#txttalla").val('');
+	   var dx=$("#txtdx").val('');
+           var Nom_T=$("#txtnomt").val('');
+           var Appat_T=$("#txtappt").val('');
+           var Apmat_T=$("#txtapmt").val('');
+                   
+	});
+        
+      
+        $("#btnConsultarID").tap(function (){
+            var w=$("#txtIDConsult").val();
+            alert(w);
+            $.ajax({
+                type:"POST",
+                url:"http://alberthoisc.esy.es/ConsultaID.php",
+                data:"W="+w,
+                success: function (respuesta){
+                        var reg =$.parseJSON(respuesta);
+                        var contenedor=$("#resConsultaID");
+                       
+                        contenedor.html('<div data-role ="content" id="c"><p>INFORMACION</p>');
+                    
+                        var x=$("#c");
+                        for(var i in reg){
+                        x.append(
+                                '<hr>'+
+                                'Datos del Beneficiario: '+reg[i].Nom+' '+reg[i].Ap_pat+' '+reg[i].Ap_mat+'<br>'+
+                                'Fecha de Nacimiento: '+reg[i].Fec_Nac+'<br>'+
+                                'Edad: '+reg[i].Edad+' años'+'<br>'+
+                                'Direccion: '+reg[i].Dir+'<br>'+
+                                'Localidad: '+reg[i].Loc+'<br>'+
+                                'Peso: '+reg[i].Peso+' kgrs'+'<br>'+
+                                'Talla: '+reg[i].Talla+' cms'+'<br>'+
+                                'Diagnostico: '+reg[i].Dx+'<br>'+
+                                'Datos del Tutor: '+reg[i].Nom_t+' '+reg[i].Appat_T+' '+reg[i].Apmat_t+'<br>'+
+                                '<br>'+
+                                '<hr>');
+                        }
+                         x.append('</div>');
+                      }
+             });
+            
+        });
+                
+        $("#btnEliminarID").tap(function (){
+            var id=$("#txtIDEliminar").val();
+            alert(id);
+            $.ajax({
+                type:"POST",
+                url:"Eliminar.php",
+                data:"ID="+id,
+                success:function (respuesta){
+                    var reg=$.parseJSON(respuesta);
+                    var contenedor=$("#resEliminaID");
+                    contenedor.html('<table border ="1" whidth="100" id = "tbl2"><th>id</th><th>nombre</th><th>marca</th><th>precio</th><th>Cant</th> ');
+                    var fila=$("#tbl3");
+                    
+                    for(var i in reg){
+                        fila.append('<tr><td>'+reg[i].id+'</td><td>'+reg[i].Nom+'</td><td>'+reg[i].Marc+'</td><td>'+reg[i].Precio+'</td><td>'+reg[i].Cant+'</td></tr>');    
+                    }
+                     fila.append('</table>');
+                }
+            });
+            
+        });
+        
+        $("#btnlimpiar").tap(function (){
+           var Nom=$("#txtnomb").val('');	
+	   var Ap_pat=$("#txtappb").val('');
+	   var Ap_mat=$("#txtapmb").val('');
+           var Fec_Nac=$("#txtfecnac").val('');
+	   var Edad=$("#txtedad").val('');	
+	   var Dir=$("#txtdir").val('');
+	   var Loc=$("#txtloc").val('');
+           var peso=$("#txtpeso").val('');
+	   var talla=$("#txttalla").val('');
+	   var dx=$("#txtdx").val('');
+           var Nom_T=$("#txtnomt").val('');
+           var Appat_T=$("#txtappt").val('');
+           var Apmat_T=$("#txtapmt").val('');
+           
+            
+        });
+        
+        $("#btnGuardar2").tap(function (){
+	 
+	   var Nom=$("#itxtnomb").val();	
+	   var Ap_pat=$("#itxtappb").val();
+	   var Ap_mat=$("#itxtapmb").val();
+           var Fec_Nac=$("#itxtfecnac").val();
+	   var Edad=$("#itxtedad").val();	
+	   var Dir=$("#itxtdir").val();
+	   var Loc=$("#itxtloc").val();
+           var Nom_T=$("#itxtnomt").val();
+           var Appat_T=$("#itxtappt").val();
+           var Apmat_T=$("#itxtapmt").val();
+           var Tel=$("#itxttel").val();
+		$.ajax({
+			type: "POST",
+			url:"Guardar2.php",
+			data:"Nom="+Nom+"&Ap_pat="+Ap_pat+"&Ap_mat="+Ap_mat+"&Fec_Nac="+Fec_Nac+
+			     "&Edad="+Edad+"&Dir="+Dir+"&Loc="+Loc+"&Nom_T="+Nom_T+"&Appat_T="+Apmat_T+"&Apmat_T="+Apmat_T+
+                              "&Tel="+Tel,
+			success: function (datos){
+				alert(datos);
+			}
+		});
+           var Nom=$("#itxtnomb").val('');	
+	   var Ap_pat=$("#itxtappb").val('');
+	   var Ap_mat=$("#itxtapmb").val('');
+           var Fec_Nac=$("#itxtfecnac").val('');
+	   var Edad=$("#itxtedad").val('');	
+	   var Dir=$("#itxtdir").val('');
+	   var Loc=$("#itxtloc").val('');
+           var Nom_T=$("#itxtnomt").val('');
+           var Appat_T=$("#itxtappt").val('');
+           var Apmat_T=$("#itxtapmt").val('');
+           var Tel=$("#itxttel").val('');
+                   
+	});
+        
+        $("#btnGuardar3").tap(function (){
+	 
+	   var Nom=$("#dtxtnomb").val();	
+	   var Ap_pat=$("#dtxtappb").val();
+	   var Ap_mat=$("#dtxtapmb").val();
+           var Fec_Nac=$("#dtxtfecnac").val();
+	   var Dir=$("#dtxtdir").val();
+	   var Loc=$("#dtxtloc").val();
+           var dx=$("#dtxtdx").val();
+           var Nom_T=$("#dtxtnomt").val();
+           var Appat_T=$("#dtxtappt").val();
+           var Apmat_T=$("#dtxtapmt").val();
+           var Tel=$("#dtxttel").val();
+		$.ajax({
+			type: "POST",
+			url:"Guardar3.php",
+			data:"Nom="+Nom+"&Ap_pat="+Ap_pat+"&Ap_mat="+Ap_mat+"&Fec_Nac="+Fec_Nac+
+			     "&Dir="+Dir+"&Loc="+Loc+"&dx="+dx+"&Nom_T="+Nom_T+"&Appat_T="+Apmat_T+"&Apmat_T="+Apmat_T+
+                              "&Tel="+Tel,
+			success: function (datos){
+				alert(datos);
+			}
+		});
+           var Nom=$("#dtxtnomb").val('');	
+	   var Ap_pat=$("#dtxtappb").val('');
+	   var Ap_mat=$("#dtxtapmb").val('');
+           var Fec_Nac=$("#dtxtfecnac").val('');
+	   var Edad=$("#dtxtedad").val('');	
+	   var Dir=$("#dtxtdir").val('');
+	   var Loc=$("#dtxtloc").val('');
+           var dx=$("#dtxtdx").val('');
+           var Nom_T=$("#dtxtnomt").val('');
+           var Appat_T=$("#dtxtappt").val('');
+           var Apmat_T=$("#dtxtapmt").val('');
+           var Tel=$("#dtxttel").val('');
+                   
+	});
+        
+        
+        
+        
+}, false);
+</script>
+</head>
+<body>
+<!-- PANTALLA 1 PRUEBA MENU -->    
+
+<div data-role="page" id="pantalla1" data-theme="b">
+
+<nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+            <span onclick="w3_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+        <br>
+        <br>
+        <br>
+        <a href="#menu1">RESCATE NUTRICIO</a>
+        <br>
+        <br>
+        <br>
+        <a href="#menu2">INCONUT</a>
+        <br>
+        <br>
+        <br>
+        <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w3_open()">☰</div>
+            <div class="w3-center">BIENVENIDOS</div>
+            </div>
+        </div>
+            <!-- IMG DE FONDO -->
+        <div class="w3-row">
+            <div class="w3-col s3">
+             <img class="yo" src="img/logo.jpg">
+            </div>           
+        </div> 
+        
+        <script>
+        function w3_open() {
+            document.getElementById("wiki").style.display = "block";
+        }
+        function w3_close() {
+            document.getElementById("wiki").style.display = "none";
+        }
+        </script>
+       
+</div>
+
+<!-- RESCATE NUTRICIO - MENU -->
+           
+<div data-role="page" id="menu1" data-theme="b">
+       <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wi">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w1_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w1_open()">☰</div>
+            <div class="w3-center">RESCATE NUTRICIO</div>
+            </div>
+        </div>
+               
+        <script>
+        function w1_open() {
+            document.getElementById("wi").style.display = "block";
+        }
+        function w1_close() {
+            document.getElementById("wi").style.display = "none";
+        }
+        </script> 
+    
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <a href="#insertar1" data-role="button" data-transition="flip">Registrar Beneficiarios</a>
+            <a href="#consultarID1" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
+            <a href="" data-role="button" data-transition="flip">Status</a>
+        </div>
+    
+</div>
+
+<!-- RESCATE NUTRICIO - AGREGAR -->
+        
+<div data-role="page" id="insertar1">
+<nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wii">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w2_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w2_open()">☰</div>
+            <div class="w3-center">RESCATE NUTRICIO</div>
+            <div class="w3-center"><H2>AGREGAR BENEFICIARIOS</H2></div>
+            
+            </div>
+        </div>
+               
+        <script>
+        function w2_open() {
+            document.getElementById("wii").style.display = "block";
+        }
+        function w2_close() {
+            document.getElementById("wii").style.display = "none";
+        }
+        </script>         
+        
+    <div data-role="content">
+        <br>
+        <br>
+        <br>
+           <input type="text" id="txtnomb" placeholder="Nombre del beneficiario" />
+	   <input type="text" id="txtappb" placeholder="Apellido paterno" />
+           <input type="text" id="txtapmb" placeholder="Apellido materno" />
+           <input type="date" id="txtfecnac"/>
+	   <input type="text" id="txtedad" placeholder="Edad" />
+	   <input type="text" id="txtdir" placeholder="Direccion" />
+	   <input type="text" id="txtloc" placeholder="Localidad" />
+           <input type="text" id="txtpeso" placeholder="Peso inicial" />
+           <input type="text" id="txttalla" placeholder="Talla inicial" />
+	   <input type="text" id="txtdx" placeholder="Diagnostico" />
+	   <input type="text" id="txtnomt" placeholder="Nombre del tutor" />
+	   <input type="text" id="txtappt" placeholder="Apellido paterno" />
+           <input type="text" id="txtapmt" placeholder="Apellido materno" />
+         
+	   <input type="button" id="btnGuardar" value="Guardar"/>
+    </div> 
+
+</div>
+    
+<!-- RESCATE NUTRICIO - CONSULTA ESPECIFICA -->
+    
+<div data-role="page" id="consultarID1" data-theme="a">
+        
+        <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiii">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w4_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w4_open()">☰</div>
+            <div class="w3-center">RESCATE NUTRICIO</div>
+            <div class="w3-center"><H2>CONSULTA POR NOMBRE</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w4_open() {
+            document.getElementById("wiii").style.display = "block";
+        }
+        function w4_close() {
+            document.getElementById("wiii").style.display = "none";
+        }
+        </script>   
+           
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="text" id="txtIDConsult" placeholder="El Nombre del Beneficiario" />
+            <input type="button" value="Consultar" id="btnConsultarID" />
+            <DIV id="resConsultaID">
+                
+            </div>
+        </div>      
+</div>    
+    
+
+<!-- INCONUT - MENU-->
+    
+<div data-role="page" id="menu2" data-theme="b">
+        
+<nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki1">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+             <span onclick="w5_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w5_open()">☰</div>
+            <div class="w3-center">INCONUT</div>
+            </div>
+        </div>
+               
+        <script>
+        function w5_open() {
+            document.getElementById("wiki1").style.display = "block";
+        }
+        function w5_close() {
+            document.getElementById("wiki1").style.display = "none";
+        }
+        </script>       
+  
+        <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+            <a href="#insertar2" data-role="button" data-transition="flip">Registrar Beneficiarios</a>
+            <a href="#" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
+            <a href="" data-role="button" data-transition="flip">Status</a>
+        </div>
+</div>
+
+<!-- INCONUT - AGREGAR-->
+    
+<div data-role="page" id="insertar2">
+          
+ <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki2">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+                 <span onclick="w6_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+                <br>
+                <br>
+                <br>
+                <a href="#menu1">RESCATE NUTRICIO</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu2">INCONUT</a>
+                <br>
+                <br>
+                <br>
+                <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w6_open()">☰</div>
+            <div class="w3-center">INCONUT</div>
+            <div class="w3-center"><H2>AGREGAR BENEFICIARIOS</H2></div>
+            </div>
+        </div>
+               
+        <script>
+        function w6_open() {
+            document.getElementById("wiki2").style.display = "block";
+        }
+        function w6_close() {
+            document.getElementById("wiki2").style.display = "none";
+        }
+        </script> 
+
+	<div data-role="content">
+            <br>
+            <br>
+            <br>
+            <br>
+	   
+           <input type="text" id="itxtnomb" placeholder="Nombre del beneficiario" />
+	   <input type="text" id="itxtappb" placeholder="Apellido paterno" />
+           <input type="text" id="itxtapmb" placeholder="Apellido materno" />
+           <input type="date" id="itxtfecnac"/>
+	   <input type="text" id="itxtedad" placeholder="Edad" />
+	   <input type="text" id="itxtdir" placeholder="Direccion" />
+	   <input type="text" id="itxtloc" placeholder="Localidad" />
+           <input type="text" id="itxtnomt" placeholder="Nombre del tutor" />
+	   <input type="text" id="itxtappt" placeholder="Apellido paterno" />
+           <input type="text" id="itxtapmt" placeholder="Apellido materno" />
+           <input type="text" id="itxttel" placeholder="Telefono de contacto" />
+         
+	   <input type="button" id="btnGuardar2" value="Guardar"/>
+	</div>
+
+        </div>
+    
+<!-- DISCAPACIDAD - MENU-->
+
+<div data-role="page" id="menu3" data-theme="b">
+
+<nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki7">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+            <span onclick="w7_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+        <br>
+        <br>
+        <br>
+        <a href="#menu1">RESCATE NUTRICIO</a>
+        <br>
+        <br>
+        <br>
+        <a href="#menu2">INCONUT</a>
+        <br>
+        <br>
+        <br>
+        <a href="#menu3">DISCAPACIDAD</a>
+</nav> 
+
+     <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w7_open()">☰</div>
+            <div class="w3-center">DISCAPACIDAD</div>
+            </div>
+        </div>
+        
+        <script>
+        function w7_open() {
+            document.getElementById("wiki7").style.display = "block";
+        }
+        function w7_close() {
+            document.getElementById("wiki7").style.display = "none";
+        }
+</script>
+       
+ <div data-role="content">
+            <br>
+            <br>
+            <br>
+            <a href="#insertar3" data-role="button" data-transition="flip">Registrar Beneficiarios</a>
+            <a href="#" data-role="button" data-transition="flip">Consultar Beneficiarios</a>
+            <a href="" data-role="button" data-transition="flip">Status</a>
+        </div>
+</div>
+
+<!-- DISCAPACIDAD - AGREGAR -->   
+
+<div data-role="page" id="insertar3">
+          
+    <nav class="w3-sidenav w3-card-2 w3-white w3-top" style="width:40%;display:none;z-index:2" id="wiki8">
+            <div class="w3-container w3-theme-d2"> MENÚ 
+            <span onclick="w8_close()" class="w3-closenav w3-right w3-large">X<br></span>
+            </div>
+        <br>
+        <br>
+        <br>
+        <a href="#menu1">RESCATE NUTRICIO</a>
+        <br>
+        <br>
+        <br>
+        <a href="#menu2">INCONUT</a>
+        <br>
+        <br>
+        <br>
+        <a href="#menu3">DISCAPACIDAD</a>
+        </nav> 
+
+           <!-- TEXTO EN CABECERA -->
+        <div class="w3-top">
+            <div class="w3-container w3-card-4 w3-theme w3-xlarge w3-padding-xlarge" style="max-width:1200px;margin:auto">
+            <div class="w3-opennav w3-left w3-hover-text-grey" onclick="w8_open()">☰</div>
+            <div class="w3-center">DISCAPACIDAD</div>
+            <div class="w3-center"><H2>AGREGAR BENEFICIARIOS</H2></div>
+            </div>
+        </div>
+  <script>
+        function w8_open() {
+            document.getElementById("wiki8").style.display = "block";
+        }
+        function w8_close() {
+            document.getElementById("wiki8").style.display = "none";
+        }
+ </script>
+              
+<div data-role="content">
+	   
+           <br>
+           <br>
+           <br>
+           <br>
+           <input type="text" id="dtxtnomb" placeholder="Nombre del beneficiario" />
+	   <input type="text" id="dtxtappb" placeholder="Apellido paterno" />
+           <input type="text" id="dtxtapmb" placeholder="Apellido materno" />
+           <input type="date" id="dtxtfecnac"/>
+	   <input type="text" id="dtxtdir" placeholder="Direccion" />
+	   <input type="text" id="dtxtloc" placeholder="Localidad" />
+           <input type="text" id="dtxtdx" placeholder="Diagnostico" />
+	   <input type="text" id="dtxtnomt" placeholder="Nombre del tutor" />
+	   <input type="text" id="dtxtappt" placeholder="Apellido paterno" />
+           <input type="text" id="dtxtapmt" placeholder="Apellido materno" />
+           <input type="text" id="dtxttel" placeholder="Telefono de contacto" />
+         
+	   <input type="button" id="btnGuardar3" value="Guardar"/>
+	</div>
+       
+</div>
+
+</body>
+</html>
